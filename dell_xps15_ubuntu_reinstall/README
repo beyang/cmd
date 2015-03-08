@@ -1,0 +1,23 @@
+When reinstalling Ubuntu on the Dell XPS 15 via USB drive, GRUB does not
+acknowledge the drive in the boot menu. The options given are something like
+this:
+
+Ubuntu
+Advanced options for Ubuntu
+Memory test (memtest86+)
+Memory test (memtest86+, serial console 115200)
+
+To actually boot from the USB drive, you need to go into the GRUB CLI (press 'c'
+at the above screen), and execute the following commands:
+
+grub> set root=(hd1,msdos1)
+grub> chainloader +1
+grub> boot
+
+where you replace (hd1,msdos1) with the name of the USB drive. You can determine
+this by removing the drive and entering:
+
+grub> ls
+
+Then reinsert the drive and enter `ls` again. The name of the USB drive will be
+the name that was not present before.
